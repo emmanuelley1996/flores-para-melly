@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Para Melly 🌻</title>
+<style>
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Georgia,serif}
+body{overflow-x:hidden;background:#f6c938;color:#291c13}
+.screen{min-height:100svh;display:grid;place-items:center;padding:24px;position:relative;background:
+linear-gradient(rgba(255,244,210,.20),rgba(112,70,0,.18)),
+url('flores-amarillas.png') center/cover fixed}
+.screen:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,250,235,.15),rgba(58,35,0,.20));pointer-events:none}
+.card{position:relative;z-index:2;width:min(92vw,720px);padding:34px 25px;border-radius:30px;text-align:center;
+background:rgba(255,250,240,.86);backdrop-filter:blur(10px);box-shadow:0 18px 55px rgba(55,35,0,.25);border:1px solid rgba(255,255,255,.7)}
+h1{font-size:clamp(38px,8vw,70px);margin:0 0 12px}.intro{font-size:clamp(18px,4vw,25px);line-height:1.5}
+button{border:0;border-radius:999px;padding:17px 28px;font-size:21px;font-family:inherit;background:#ffd84b;color:#352109;
+box-shadow:0 8px 22px rgba(74,48,0,.25);cursor:pointer;transition:.2s}button:active{transform:scale(.96)}
+#surprise{display:none;opacity:0;transform:translateY(25px);transition:.9s ease}
+#surprise.show{opacity:1;transform:none}
+.name{font-family:cursive;font-size:clamp(52px,13vw,90px);margin:0}.msg{font-size:clamp(18px,4.3vw,27px);line-height:1.55;margin:10px auto;max-width:610px}
+.small{font-size:16px;opacity:.75;margin-top:18px}.heart{font-size:34px;animation:pulse 1.2s infinite}@keyframes pulse{50%{transform:scale(1.2)}}
+.petal{position:fixed;top:-60px;z-index:4;pointer-events:none;font-size:30px;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--drift),110vh) rotate(540deg);opacity:.25}}
+.bloom{position:fixed;z-index:5;pointer-events:none;font-size:50px;animation:bloom 1.6s ease forwards}
+@keyframes bloom{0%{transform:scale(0) rotate(-20deg);opacity:0}55%{opacity:1}100%{transform:scale(1.25) rotate(10deg);opacity:0}}
+</style>
+</head>
+<body>
+<section class="screen" id="cover">
+  <div class="card">
+    <div style="font-size:48px">🌻</div>
+    <h1>Para una persona<br>muy especial</h1>
+    <p class="intro">Haz clic en el botón y deja que estas flores amarillas te recuerden lo increíble que eres…</p>
+    <button id="open">🌼 Haz clic aquí</button>
+    <p class="small">Flores para alguien especial ♡</p>
+  </div>
+</section>
+
+<section class="screen" id="surprise">
+  <div class="card">
+    <div style="font-size:52px">🌻💛🌻</div>
+    <div class="name">Melly</div>
+    <div class="heart">♡</div>
+    <p class="msg">
+      Nos conocimos sin darse la casualidad. Me encanta conocerte en todas tus facetas y me gustaría seguir siendo parte de tus momentos bonitos, así como tú de los míos.<br><br>
+      Sigamos este viaje juntos, porque contigo todo se vuelve alegría, felicidad y amor, mucho amor.<br><br>
+      <strong>Te quiero bonita ❤️</strong>
+    </p>
+    <button onclick="hearts()">Gracias por existir ♥</button>
+  </div>
+</section>
+
+<script>
+const openBtn=document.getElementById('open'), surprise=document.getElementById('surprise');
+function petal(){
+  const p=document.createElement('div'); p.className='petal';
+  p.textContent=Math.random()>.5?'🌼':'💛';
+  p.style.left=Math.random()*100+'vw'; p.style.setProperty('--drift',(Math.random()*180-90)+'px');
+  p.style.animationDuration=(4+Math.random()*4)+'s'; document.body.appendChild(p); setTimeout(()=>p.remove(),8500);
+}
+function bloom(){
+  const f=document.createElement('div'); f.className='bloom'; f.textContent='🌻';
+  f.style.left=(5+Math.random()*85)+'vw'; f.style.top=(10+Math.random()*75)+'vh';
+  document.body.appendChild(f); setTimeout(()=>f.remove(),1700);
+}
+function hearts(){for(let i=0;i<18;i++)setTimeout(bloom,i*90)}
+openBtn.onclick=()=>{
+  for(let i=0;i<34;i++)setTimeout(petal,i*100);
+  for(let i=0;i<14;i++)setTimeout(bloom,i*100);
+  setTimeout(()=>{
+    surprise.style.display='grid';
+    requestAnimationFrame(()=>surprise.classList.add('show'));
+    surprise.scrollIntoView({behavior:'smooth'});
+  },550);
+};
+</script>
+</body>
+</html>
